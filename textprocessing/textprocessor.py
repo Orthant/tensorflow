@@ -83,12 +83,13 @@ else:
   maxlen=25
   print('Using default sequence length of 25')
 
-X, Y, char_idx = textfile_to_semi_redundant_sequences(path, seq_maxlen=maxlen, redun_step=3)
-
 if os.path.isfile(char_idx_file):
   print('Loading previous char_idx_file')
   char_idx=pickle.load(open(char_idx_file, 'rb'))
-else:
+
+X, Y, char_idx = textfile_to_semi_redundant_sequences(path, seq_maxlen=maxlen, redun_step=3, pre_defined_char_idx=char_idx)
+
+if not os.path.isfile(char_idx_file):
   print('Dumping char_idx_file')
   pickle.dump(char_idx, open(char_idx_file, 'wb'))
 
